@@ -1,0 +1,20 @@
+{
+    "name": "stancl/laravel-hasmanywithinverse",
+    "description": "Define HasMany while also setting the inverse relationship in Laravel.",
+    "type": "package",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Stancl\\HasManyWithInverse\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Samuel Štancl",
+            "email": "samuel.stancl@gmail.com"
+        }
+    ],
+    "require": {
+        "illuminate/database": "^6.0|^7.0"
+    }
+}
