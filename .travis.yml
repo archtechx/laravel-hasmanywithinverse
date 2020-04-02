@@ -3,7 +3,7 @@ php:
  - '7.2'
 
 install:
-  - travis_retry docker-compose exec test composer install --no-interaction
+  - travis_retry composer install --no-interaction
 
 before_script:
   - export CODECOV_TOKEN="6de43b13-9ea8-498c-bb32-c29f3f098517"
