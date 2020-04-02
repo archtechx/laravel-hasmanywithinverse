@@ -8,6 +8,11 @@
             "Stancl\\HasManyWithInverse\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Stancl\\HasManyWithInverse\\Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Samuel Štancl",
@@ -17,5 +22,9 @@
     "require": {
         "php": "^7.2",
         "illuminate/database": "^6.0|^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0",
+        "orchestra/testbench": "^5.1"
     }
 }

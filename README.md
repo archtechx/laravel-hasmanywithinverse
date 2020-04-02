@@ -101,4 +101,28 @@ You may also want to use the trait in a base Eloquent model and then use `$this-
 
 ## Details
 
-The (simple) internals of the package are just methods copied from Eloquent source code, with a few lines added to them. The `hasManyWithInverse()` method signature is the exact same as `hasMany()` (you can set `$foreignKey` and `$localKey`), except the second argument (`$inverse`) was added to let you define the name of the relationship on the child model.
+The (simple) internals of the package are just methods copied from Eloquent source code, with a few lines added to them. The `hasManyWithInverse()` method signature is the same as `hasMany()` (you can set `$foreignKey` and `$localKey`), except the second argument (`$inverse`) was added to let you define the name of the relationship on the child model, and the last argument (`$config`) was added to let you configure the relation setting's behavior.
+
+**This package sets the parent relation on children both when creating children (`$child = $parent->children()->create()`) and when resolving parent's children (`$children = $parent->children`).** You can customize this behavior for every relationship.
+
+To disable setting the relationship during child **creation**, do this:
+```php
+class Parent extends Model
+{
+    public function children()
+    {
+        return $this->hasManyWithInverse(Child::class, 'parent', null, null, ['setRelationOnCreation' => false]);
+    }
+}
+```
+
+To disable setting the relationship during child **resolution**, do this:
+```php
+class Parent extends Model
+{
+    public function children()
+    {
+        return $this->hasManyWithInverse(Child::class, 'parent', null, null, ['setRelationOnResolution' => false]);
+    }
+}
+```

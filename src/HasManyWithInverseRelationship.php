@@ -11,9 +11,13 @@ class HasManyWithInverseRelationship extends HasMany
     /** @var string */
     protected $relationToParent;
 
-    public function __construct(Builder $query, Model $parent, string $foreignKey, string $localKey, string $relationToParent)
+    /** @var array */
+    protected $config;
+
+    public function __construct(Builder $query, Model $parent, string $foreignKey, string $localKey, string $relationToParent, array $config)
     {
         $this->relationToParent = $relationToParent;
+        $this->config = $config;
 
         parent::__construct($query, $parent, $foreignKey, $localKey);
     }
@@ -28,9 +32,23 @@ class HasManyWithInverseRelationship extends HasMany
         return tap($this->related->newInstance($attributes), function ($instance) {
             $this->setForeignAttributesForCreate($instance);
 
-            $instance->setRelation($this->relationToParent, $this->getParent());
+            if ($this->config['setRelationOnCreation'] ?? true) {
+                $instance->setRelation($this->relationToParent, $this->getParent());
+            }
 
             $instance->save();
         });
     }
+
+    public function getResults()
+    {
+        $results = parent::getResults();
+
+        if ($this->config['setRelationOnResolution'] ?? true) {
+            $results->each->setRelation($this->relationToParent, $this->getParent());
+        }
+
+        return $results;
+    }
 }
+ 
