@@ -84,7 +84,7 @@ class Order extends Model
     public function products()
     {
         // 'order' is the name of the relationship in the other model, see below
-        return $this->hasManywithInverse(App\OrderProduct::class, 'order');
+        return $this->hasManywithInverse(OrderProduct::class, 'order');
     }
 }
 
