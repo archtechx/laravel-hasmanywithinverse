@@ -8,9 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class HasManyWithInverseRelationship extends HasMany
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $relationToParent;
 
     public function __construct(Builder $query, Model $parent, string $foreignKey, string $localKey, string $relationToParent)
