@@ -1,4 +1,4 @@
-# laravel/hasmanywithinverse
+# stancl/laravel-hasmanywithinverse
 
 ## Why?
 
