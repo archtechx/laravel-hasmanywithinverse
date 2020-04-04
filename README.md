@@ -36,7 +36,7 @@ I have created an order with 6 products.
 
 #### This is the amount of queries made with regular `hasMany()`
 
-![Query count with hasMany()](https://i.imgur.com/Swl9zGw.png)
+![Query count with hasMany()](https://i.imgur.com/Yss7aVl.png)
 
 And now I just replace all of these calls:
 
@@ -52,11 +52,11 @@ inside the `Order` model.
 
 #### And this is the amount of queries made with `hasManyWithInverse()`
 
-![Query count with hasManyWithInverse()](https://i.imgur.com/TqeWIa4.png)
+![Query count with hasManyWithInverse()](https://i.imgur.com/XimW6T7.png)
 
 See the query count reduction.
 
-The request duration was also decreased from 399ms to 301ms on my machine, though note that I did not run this test a million times to calculate an average request duration, so that benchmark might not be very accurate.
+The duration was also decreased from 114ms to 45ms on my machine, though note that I did not run this test a million times to calculate an average duration, so that benchmark might not be very accurate.
 
 This is pretty impressive for **a free improvement that only requires changing a few simple calls to a similar method**.
 
