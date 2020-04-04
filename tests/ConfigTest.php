@@ -41,4 +41,25 @@ class ConfigTest extends TestCase
 
         $this->assertFalse($parent->children->first()->relationLoaded('parent'));
     }
+
+    /** @test */
+    public function config_value_can_be_a_closure()
+    {
+        /** @var ParentModel $parent */
+        $parent = (new class extends ParentModel {
+            public function children()
+            {
+                return $this->hasManyWithInverse(ChildModel::class, 'parent', 'parent_id', null, [
+                    'setRelationOnResolution' => function () {
+                        return false;
+                    },
+                ]);
+            }
+        })::create([]);
+
+        /** @var ChildModel $child */
+        $child = $parent->children()->create([]);
+
+        $this->assertFalse($parent->children->first()->relationLoaded('parent'));
+    }
 }

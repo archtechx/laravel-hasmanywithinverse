@@ -126,3 +126,31 @@ class Parent extends Model
     }
 }
 ```
+
+You may also pass a callable as the config value. This is useful if you want to disable this behavior on some requests. See example below.
+
+## Laravel Nova
+
+It's a good idea to disable setting the relationship on resolution for Nova requests. They tend to make a lot of queries and this can slow the page down (or result in 502 errors).
+
+Here's an example implementation using a base model and adding config to filter out Nova requests.
+
+```php
+abstract class Model extends EloquentModel
+{
+    use HasManyWithInverse {
+        hasManyWithInverse as originalHasManyWithInverse;
+    }
+
+    public function hasManyWithInverse($related, $inverse, $foreignKey = null, $localKey = null, $config = [])
+    {
+        $config = array_merge(['setRelationOnResolution' => function () {
+            if (request()->route() && in_array('nova', request()->route()->middleware())) {
+                return false;
+            }
+        }], $config);
+
+        return $this->originalHasManyWithInverse($related, $inverse, $foreignKey, $localKey, $config);
+    }
+}
+```

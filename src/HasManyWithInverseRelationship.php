@@ -32,7 +32,7 @@ class HasManyWithInverseRelationship extends HasMany
         return tap($this->related->newInstance($attributes), function ($instance) {
             $this->setForeignAttributesForCreate($instance);
 
-            if ($this->config['setRelationOnCreation'] ?? true) {
+            if ($this->config('setRelationOnCreation', true)) {
                 $instance->setRelation($this->relationToParent, $this->getParent());
             }
 
@@ -44,11 +44,23 @@ class HasManyWithInverseRelationship extends HasMany
     {
         $results = parent::getResults();
 
-        if ($this->config['setRelationOnResolution'] ?? true) {
+        if ($this->config('setRelationOnResolution', true)) {
             $results->each->setRelation($this->relationToParent, $this->getParent());
         }
 
         return $results;
     }
+
+    protected function config(string $key, $default)
+    {
+        if (! isset($this->config[$key])) {
+            return $default;
+        }
+
+        if (is_callable($this->config[$key])) {
+            return $this->config[$key]();
+        }
+
+        return $this->config[$key];
+    }
 }
- 
