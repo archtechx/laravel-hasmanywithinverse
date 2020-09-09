@@ -64,7 +64,7 @@ But note that this is not a silver bullet for solving all n+1 queries. As you ca
 
 ## Installation
 
-Laravel 6.x and 7.x is supported.
+Laravel 6.x, 7.x, and 8.x is supported.
 
 ```
 composer require stancl/laravel-hasmanywithinverse

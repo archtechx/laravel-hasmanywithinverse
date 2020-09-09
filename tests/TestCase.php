@@ -14,11 +14,11 @@ abstract class TestCase extends TestbenchTestCase
         parent::setUp();
 
         Schema::create('parents', function (Blueprint $table) {
-            $table->id('id');
+            $table->bigIncrements('id');
         });
 
         Schema::create('children', function (Blueprint $table) {
-            $table->id('id');
+            $table->bigIncrements('id');
 
             $table->unsignedBigInteger('parent_id');
         });
